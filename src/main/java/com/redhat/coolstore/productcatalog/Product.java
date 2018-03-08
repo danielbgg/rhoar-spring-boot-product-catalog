@@ -10,17 +10,17 @@ import javax.persistence.Id;
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long itemId;
 
 	private String name;
 
-	@Column(length = 2000)
+	@Column(length=2000)
 	private String description;
+	
 	private double price;
 
-	public Product() {
-	}
+	public Product() {}
 
 	public Long getItemId() {
 		return itemId;
@@ -47,7 +47,7 @@ public class Product {
 	}
 
 	public double getPrice() {
-		return price;
+	return price;
 	}
 
 	public void setPrice(double price) {

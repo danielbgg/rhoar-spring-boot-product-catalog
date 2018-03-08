@@ -2,35 +2,30 @@ package com.redhat.coolstore.productcatalog;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
-@Path("/products")
+@RestController("/products")
 public class ProductCatalogService {
 
-	@Inject
-	ProductRepository catalog;
+    @Value("${coolstore.message:Hello World!}")
+    private String message;
 
-	@Value("${coolstore.message:Hello World!}")
-	String message;
-
-	public String sayHello() {
-		return message;
-	}
-
-	@GET
-	public Response list() {
-		List<Product> products = catalog.findAll();
-		if (products == null || products.isEmpty()) {
-			return Response.serverError().entity("Did not found any products").build();
-		}
-		return Response.ok(products, MediaType.APPLICATION_JSON).build();
-	}
+	@Autowired
+	private ProductRepository productRepository;
+    
+    public String sayHello() {    		
+        return message;
+    }
+    
+    @ResponseBody
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)    
+    public List<Product> list() {    		
+        return productRepository.findAll();
+    }
+    
 }

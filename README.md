@@ -1,5 +1,5 @@
-# Spring Boot - Product Catalog Application
-Demo application for Spring Boot.
+# RHOAR Spring Boot Product Catalog
+Demo Microservice for Spring Boot - RHOAR course
 
 ## Openshift Deployment
 ```
@@ -15,7 +15,7 @@ keytool -import -noprompt -trustcacerts -alias Openshift -file /etc/pki/ca-trust
 mvn clean fabric8:deploy -Popenshift -Djavax.net.ssl.trustStore=$JAVA_HOME/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit
 ```
 
-Test the service
+### Deployment Test
 ```
 export PRODUCT_CATALOG_URL=http://$(oc get route product-catalog -n $CATALOG_PROJECT_NAME -o template --template='{{.spec.host}}')
 curl -X GET "$PRODUCT_CATALOG_URL/products"
